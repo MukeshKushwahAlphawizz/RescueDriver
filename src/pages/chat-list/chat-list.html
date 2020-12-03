@@ -1,0 +1,58 @@
+
+<ion-header class="top-header">
+    <ion-navbar>
+      <ion-buttons no-margin left class="drover_icn">
+        <button  no-margin ion-button icon-only menuToggle>
+            <ion-icon class="text-white" name="md-menu"></ion-icon>
+        </button>
+    </ion-buttons>
+    
+      <ion-title text-center>Chat List</ion-title>
+      
+      <ion-buttons right class="notification_icn" (click)="notificaion()">
+          <button ion-button icon-only light class="text-white">
+              <img src="assets/img/notifications.png">       
+          </button>
+        </ion-buttons>
+      
+    </ion-navbar>
+</ion-header>  
+  
+  <ion-content>
+    <div margin-top margin-bottom>
+  
+      <ion-item no-lines (click)="chat_open()">
+        <ion-avatar item-left>
+          <img src="assets/img/driver_img.png">
+        </ion-avatar>
+        <div item-start> 
+          <div class="medium-text">John Deo</div>
+          <div style="margin-top: 5px" class="text-grey small-text">Bro, i call u tomorrow</div>
+        </div>
+        <div class="smallest-text" item-right>6 minutes ago</div>
+      </ion-item>
+  
+      <ion-item no-lines  (click)="chat_open()">
+        <ion-avatar item-left>
+          <img src="assets/img/driver_img.png">
+        </ion-avatar>
+        <div item-start>
+          <div class="medium-text">Eyra Din</div>
+          <div style="margin-top: 5px" class="text-grey small-text">Attactment?</div>
+        </div>
+        <div class="smallest-text" item-right>12 minutes ago</div>
+      </ion-item>
+  
+      <ion-item no-lines  (click)="chat_open()">
+        <ion-avatar item-left>
+          <img src="assets/img/driver_img.png">
+        </ion-avatar>
+        <div item-start>
+          <div class="medium-text">Ron John</div>
+          <div style="margin-top: 5px" class="text-grey small-text">Good Night...</div>
+        </div>
+        <div class="smallest-text" item-right>18 minutes ago</div>
+      </ion-item>
+    </div>
+  </ion-content>
+  

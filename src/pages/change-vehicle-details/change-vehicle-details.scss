@@ -1,0 +1,16 @@
+page-change-vehicle-details {
+    .main-bg {
+        background-image: url(../assets/img/Login_bg.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }   
+    .signin-btn button{
+        width: 50%;
+    } 
+    .change_details {
+        margin: 11rem 0rem 15rem 0rem;
+    }    
+    .change_details img {
+        width: 75%;
+    }
+}

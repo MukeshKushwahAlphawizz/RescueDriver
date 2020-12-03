@@ -1,0 +1,29 @@
+<ion-header class="top-header">
+  <ion-navbar>
+    <ion-title text-center>Edit profile</ion-title>
+    <ion-buttons right class="hide_icn">
+      <button ion-button icon-only light class="text-white">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="profile_content">
+  <div text-center class="profile_bg">
+    <img (click)="openPicker()" [src]="profileImgToShow&&profileImgToShow!==''?profileImgToShow:'assets/img/user-default.png'">
+  </div>
+    <ion-list padding margin-top>
+      <ion-item no-padding margin-top class="transparent">
+        <ion-input [(ngModel)]="fullName" no-margin type="text" value="FullName" class="medium-text"></ion-input>
+      </ion-item>
+      <ion-item no-padding margin-top class="transparent">
+        <ion-input [(ngModel)]="mobileNumber" no-margin type="number" value="Mobile No." class="medium-text"></ion-input>
+      </ion-item>
+      <textarea [(ngModel)]="bio" class="transparent medium-text" placeholder="Enter Bio"></textarea>
+      <div text-center margin padding class="signin-btn">
+        <button (click)="save()" margin ion-button round class="yellow_btn">Save</button>
+      </div>
+      <div (click)="deleteAccount()" text-center margin class="Delete_act">
+        <p class="">Delete My Account</p>
+      </div>
+    </ion-list>
+</ion-content>

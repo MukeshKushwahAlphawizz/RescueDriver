@@ -1,0 +1,37 @@
+page-edit-profile {
+    .profile_bg {
+        background-image: url(../assets/img/bg_shape.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        padding-top: 9rem;
+    }
+    .profile_bg img {
+      width: 70pt;
+      height: 70pt;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .profile_content .transparent .item-inner {
+        border-bottom: 1px solid #000000;
+    }
+    .profile_content .transparent.item {
+        min-height: 3.4rem;
+    }
+    .signin-btn button{
+        width: 58%;
+    }
+    .small-text p {
+        display: inline-block;
+    }
+    .profile_content textarea.transparent::placeholder {
+        color: #000;
+    }
+    .profile_content textarea.transparent {
+        width: 100%;
+        border-bottom: 1px solid #000000;
+        height: 50px;
+        color: #000;
+        resize: none;
+        margin-top: 23px;
+    }
+}

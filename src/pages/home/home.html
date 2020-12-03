@@ -1,0 +1,51 @@
+<ion-header class="top-header">
+  <ion-navbar>
+    <ion-buttons no-margin left class="drover_icn">
+      <button  no-margin ion-button icon-only menuToggle>
+        <ion-icon class="text-white" name="md-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>Booking Request</ion-title>
+    <ion-buttons right class="notification_icn" (click)="openNotif()">
+      <button ion-button icon-only light class="text-white">
+        <img src="assets/img/notifications.png">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="driver_list">
+
+  <div margin-top class="text-black bold" text-center *ngIf="isListEmpty">No Booking requests are available</div>
+  <ion-list *ngIf="!isListEmpty">
+    <ion-card *ngFor="let item of bookingList" margin-bottom>
+      <ion-row>
+        <ion-col col-2 no-padding>
+          <img [src]="item.image && item.image !==''?item.image:'assets/img/user-customer.png'">
+        </ion-col>
+        <ion-col col-10>
+          <div  class="btn_box">
+            <h6 class="small-text">{{item.username}}</h6>
+            <div  text-right class="right_btn">
+              <button (click)="reject(item)" small round class="Reject_btn text-white medium-bold">Reject </button>
+              <button small round class="View_btn text-white medium-bold" (click)="view(item)">View</button>
+            </div>
+          </div>
+          <div class="pickup_location">
+            <span item-start>Pickup Location : <b>{{item.pick_location}}</b></span>
+            <span item-end text-right class="medium-text">Time : {{item.pick_time}}</span>
+          </div>
+          <div class="Drop_location">
+            <span item-start>Drop Location : <b>{{item.drop_location}}</b></span>
+            <span item-end text-right class="medium-text">Date : {{item.pick_date}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+    <div class="refresh_btn">
+        <button (click)="getAllRequest(true)" ion-button block round class="yellow_btn">Refresh</button>
+    </div>
+</ion-footer>

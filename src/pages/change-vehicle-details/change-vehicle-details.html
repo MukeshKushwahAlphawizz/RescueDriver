@@ -1,0 +1,21 @@
+
+<ion-header class="transparent">
+    <ion-navbar>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="main-bg">
+
+    <div class="login-title">
+        <h1 class="bold" text-center>Vehicle Registration</h1>
+    </div>
+    <div text-center class="change_details">
+      <img [src]="vehicleImage && vehicleImage !== ''?vehicleImage:'assets/img/id.png'">
+    </div>
+
+    <div text-center margin-top padding-top class="signin-btn">
+      <button (click)="change()" margin-top ion-button round class="yellow_btn">Change</button>
+    </div>
+
+</ion-content>
+

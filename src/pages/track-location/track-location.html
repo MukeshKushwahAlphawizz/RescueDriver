@@ -1,0 +1,51 @@
+
+<ion-header class="top-header">
+  <ion-navbar>
+      <ion-buttons no-margin left class="drover_icn">
+          <button no-margin ion-button icon-only menuToggle>
+              <ion-icon class="text-white" name="md-menu"></ion-icon>
+          </button>
+      </ion-buttons>
+
+      <ion-title text-center>Track Location</ion-title>
+
+      <ion-buttons right class="notification_icn" (click)="notificaion()">
+          <button ion-button icon-only light class="text-white">
+              <img src="assets/img/notifications.png">
+          </button>
+        </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="tracking_box">
+  <div #map id="map" style="height:55%"></div>
+
+  <div padding margin-top class="tracking_content">
+
+    <ion-card class="redius-15">
+      <ion-item>
+        <div class="green_dot" item-start></div>
+        <div class="small-text ">Pickup From</div>
+        <div class="big-text text-black bold">{{tripData.pick_location}}</div>
+      </ion-item>
+    </ion-card>
+
+    <ion-card class="redius-15 top-margin">
+      <ion-item>
+        <div class="red_dot" item-start></div>
+        <div class="small-text ">Drop Location</div>
+        <div class="big-text text-black bold">{{tripData.drop_location}}</div>
+      </ion-item>
+    </ion-card>
+
+    <div margin-top class="bottom_btn">
+      <button class="Chat_btn text-white medium-bold" (click)="chat()">Chat <ion-icon name="ios-chatboxes"></ion-icon></button>
+      <button (click)="call()" class="Call_btn text-white medium-bold">Call  <ion-icon name="call"></ion-icon> </button>
+    </div>
+
+  </div>
+</ion-content>
+<ion-footer>
+  <button (click)="end()" no-margin ion-button full class="yellow_btn">END</button>
+</ion-footer>
