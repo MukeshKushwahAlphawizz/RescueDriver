@@ -41,7 +41,7 @@
 
     <div margin-top class="bottom_btn">
       <button class="Chat_btn text-white medium-bold" (click)="chat()">Chat <ion-icon name="ios-chatboxes"></ion-icon></button>
-      <button (click)="call()" class="Call_btn text-white medium-bold">Call  <ion-icon name="call"></ion-icon> </button>
+      <button (click)="call()" class="Call_btn text-white medium-bold">Call  <a href="tel:{{tripData.mobile && tripData.mobile !==''?tripData.mobile:''}}"><ion-icon name="call"></ion-icon> </a></button>
     </div>
 
   </div>

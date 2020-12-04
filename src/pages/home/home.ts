@@ -4,6 +4,7 @@ import {User} from "../../providers";
 import {UtilProvider} from "../../providers/util/util";
 import {Storage} from "@ionic/storage";
 import {Geolocation} from "@ionic-native/geolocation";
+import {Events} from "ionic-angular/index";
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -18,8 +19,12 @@ export class HomePage {
               public user:User,
               public geolocation:Geolocation,
               public storage:Storage,
+              public events:Events,
               public util:UtilProvider,
               public navParams: NavParams) {
+    events.subscribe('bookingRequest',()=>{
+      this.getAllRequest(false);
+    })
   }
 
   ionViewDidLoad() {

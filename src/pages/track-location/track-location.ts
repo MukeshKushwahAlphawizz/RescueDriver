@@ -24,6 +24,7 @@ export class TrackLocationPage {
   map: any='';
 
   interval:any;
+  startMarker = new google.maps.Marker;
   constructor(public navCtrl: NavController,
               public util:UtilProvider,
               public user:User,
@@ -72,27 +73,28 @@ export class TrackLocationPage {
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
-        this.lat1=allData.pick_latitude;
-        this.long1=allData.pick_longitude;
-        this.lat2=allData.drop_latitude;
-        this.long2=allData.drop_longitude;
+        that.lat1=allData.pick_latitude;
+        that.long1=allData.pick_longitude;
+        that.lat2=allData.drop_latitude;
+        that.long2=allData.drop_longitude;
         that.directionsDisplay.setDirections(response);
-        this.loadMap();
+        that.loadMap();
       }
     });
   }
   loadMap(){
-    let startMarker = new google.maps.Marker({ position: {
+    // this.startMarker.setMap(null);
+    this.startMarker = new google.maps.Marker({ position: {
         lat:parseFloat(this.lat1),
         lng:parseFloat(this.long1)
       }, map: this.map, icon: 'assets/img/truck-map.png' });
 
-    startMarker = new google.maps.Marker({position: {
+    this.startMarker = new google.maps.Marker({position: {
         lat:parseFloat(this.lat2),
         lng:parseFloat(this.long2)
       }, map: this.map, icon: 'assets/img/green-dot.png' });
 
-    this.directionsDisplay.setMap(this.map,startMarker);
+    this.directionsDisplay.setMap(this.map,this.startMarker);
     this.directionsDisplay.setOptions({
       polylineOptions: {
         strokeColor: '#752264'
@@ -109,6 +111,7 @@ export class TrackLocationPage {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
   }
 
   updateDriverLocation() {
@@ -120,7 +123,7 @@ export class TrackLocationPage {
         "user_type":"2"
       }
       this.user.updateLatLng(rawData).subscribe(res => {
-        console.log(this.tripData);
+        // console.log(this.tripData);
         this.tripData.pick_latitude = resp.coords.latitude;
         this.tripData.pick_longitude = resp.coords.longitude;
         let to = new google.maps.LatLng(this.tripData.pick_latitude, this.tripData.pick_longitude);
