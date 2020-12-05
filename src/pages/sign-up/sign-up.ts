@@ -17,6 +17,7 @@ export class SignUpPage {
   signUpForm: FormGroup;
   error_messages: any = {};
   firebaseToken: any = '';
+  show: boolean = false;
   constructor(public navCtrl: NavController,
               public formBuilder: FormBuilder,
               public util:UtilProvider,
@@ -42,7 +43,7 @@ export class SignUpPage {
       password:this.signUpForm.value.password,
       fcm_token:this.firebaseToken
     }
-    this.navCtrl.setRoot('VehicleDetailsPage',{requestData:requestData});
+    this.navCtrl.push('VehicleDetailsPage',{requestData:requestData});
   }
 
   ionViewDidLoad() {
@@ -68,7 +69,6 @@ export class SignUpPage {
       password: [
         { type: "required", message: 'Password is required' },
         { type: "minlength", message: '*Minimum length should be 8' },
-        { type: "maxlength", message: '*Maximum length should be 12' }
       ]
     };
     this.signUpForm = this.formBuilder.group(
@@ -103,7 +103,6 @@ export class SignUpPage {
           Validators.compose([
             Validators.required,
             Validators.minLength(8),
-            Validators.maxLength(12)
           ])
         )
       },

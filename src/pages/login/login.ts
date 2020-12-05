@@ -42,8 +42,6 @@ export class LoginPage {
 
       password: [
         { type: "required", message: 'Password is required' },
-        { type: "minlength", message: "Minimun length should be 8" },
-        { type: "maxlength", message: "Maximum length should be 12" }
       ]
     };
     this.loginForm = this.formBuilder.group(
@@ -58,9 +56,7 @@ export class LoginPage {
         password: new FormControl(
           "",
           Validators.compose([
-            Validators.required,
-            Validators.minLength(8),
-            Validators.maxLength(12)
+            Validators.required
           ])
         )},
     );
@@ -87,7 +83,7 @@ export class LoginPage {
 
     this.user.login(formData).subscribe(res=>{
       let resp :any = res;
-      this.util.presentAlert('',resp.message);
+      this.util.presentToast(resp.message);
       if (resp.status){
         this.storage.set('userData',JSON.stringify(resp.data)).then(()=>{
           this.navCtrl.setRoot('MenuPage')

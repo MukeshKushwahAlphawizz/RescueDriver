@@ -64,6 +64,7 @@ export class MyApp {
         console.log("Received in background",JSON.stringify(data));
       } else {
         console.log("Received in foreground",JSON.stringify(data));
+        console.log("check type >>>>",data.types);
         if (data.types === '1'){
           this.util.presentAlert('Booking',data.body);
           this.events.publish('bookingRequest',true);
