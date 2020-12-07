@@ -15,6 +15,7 @@ import { UtilProvider } from '../providers/util/util';
 import {FCM} from "@ionic-native/fcm";
 import {Geolocation} from "@ionic-native/geolocation";
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { FirebaseProvider } from '../providers/firebase/firebase';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -52,7 +53,8 @@ export function createTranslateLoader(http: HttpClient) {
     Geolocation,
     SocialSharing,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    UtilProvider
+    UtilProvider,
+    FirebaseProvider
   ]
 })
 export class AppModule { }

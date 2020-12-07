@@ -35,6 +35,7 @@ export class DetailsPage {
       this.user.acceptBooking(data).subscribe(res=>{
         let resp : any = res;
         if (resp.status){
+          this.createRoom();
           this.util.presentAlert('',resp.message);
           this.navCtrl.setRoot('TabsPage');
         }
@@ -48,4 +49,7 @@ export class DetailsPage {
     })
   }
 
+  createRoom() {
+
+  }
 }

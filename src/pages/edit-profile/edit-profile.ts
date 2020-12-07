@@ -79,7 +79,7 @@ export class EditProfilePage {
     let formData = new FormData();
     formData.append('full_name',this.fullName);
     formData.append('mobile',this.mobileNumber);
-    formData.append('bio',this.bio);
+    formData.append('bio',this.bio.trim());
     formData.append('user_image',this.profileImg);
     formData.append('profile_id',this.userData.id);
     this.user.updateProfile(formData).subscribe(res=>{

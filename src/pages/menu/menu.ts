@@ -78,6 +78,6 @@ export class MenuPage {
   }
 
   shareApp() {
-    this.share.share('','','','');
+    this.share.share('Rescue Any Car : Check the great app which I am using : ','','','https://play.google.com/store/apps/details?id=com.alpha.rescuedriver');
   }
 }
