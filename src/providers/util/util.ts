@@ -4,6 +4,7 @@ import {Camera} from "@ionic-native/camera";
 import {User} from "..";
 import {Storage} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
+import moment from "moment";
 
 @Injectable()
 export class UtilProvider {
@@ -141,8 +142,9 @@ export class UtilProvider {
   }
 
   timeSince(date:any) {
-    // return moment(date).fromNow()
+    return moment(date).fromNow()
   }
+
   randomImg(){
     let randomNumber = Math.floor(Math.random() * 1000) + 1;
     return "image" + randomNumber;

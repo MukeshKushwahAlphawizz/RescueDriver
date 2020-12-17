@@ -4,6 +4,7 @@ import {App} from "ionic-angular/index";
 import {UtilProvider} from "../../providers/util/util";
 import {User} from "../../providers";
 import {Storage} from "@ionic/storage";
+import {FirebaseProvider} from "../../providers/firebase/firebase";
 
 @IonicPage()
 @Component({
@@ -19,6 +20,7 @@ export class MyHistoryPage {
               public user : User,
               public storage : Storage,
               public app : App,
+              public firedb : FirebaseProvider,
               public navParams: NavParams) {
   }
 
@@ -50,8 +52,17 @@ export class MyHistoryPage {
     })
   }
 
-  chat() {
-    this.app.getRootNav().push('ChatPage');
+  chat(item) {
+    let customer = {
+      date_of_join:new Date().getTime(),
+      id:item.user_id+'_C',
+      image:item.user_image,
+      isDriver:false,
+      name:item.user_name
+    }
+    this.firedb.addUser(customer,this.userData.id+'_D');
+    let chatRef = item.user_id+'_C'+'-'+this.userData.id+'_D';
+    this.app.getRootNav().push('ChatPage',{chatRef:chatRef,customer:customer,driver:this.userData});
   }
 
   notificaion(){

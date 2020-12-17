@@ -19,43 +19,46 @@ export class ChatListPage {
               public util:UtilProvider,
               public firedb:FirebaseProvider,
               public navParams: NavParams) {
-    let user = {
-      date_of_join:new Date().getTime(),
-      id:'100'+Math.random(),
-      image:'',
-      isDriver:true,
-      isAvailable:true,
-      name:'driver_'
-    }
-    /*this.firedb.addUser(user,'1002');
-    this.firedb.addUser(user,'1002');
-    this.firedb.addUser(user,'1002');*/
+
   }
 
   ionViewDidLoad() {
     this.storage.get('userData').then(userData=>{
       this.userData = JSON.parse(userData);
       this.util.presentLoader();
-      this.firedb.getAllUsers(this.userData.id).subscribe(data=>{
+      this.firedb.getAllUsers(this.userData.id+'_D').subscribe(data=>{
         if (data && data.length){
           this.allUsers = data;
+          this.allUsers = this.allUsers.filter(item=>{
+            this.firedb.getFirstChat(item.id+'-'+this.userData.id+'_D').subscribe(data=>{
+              if (data && data[0]){
+                item.last_message = data[0]['message'];
+                item.last_message_time = data[0]['date'];
+              }else {
+                //if latest message is undefined then check again for latest message
+                this.firedb.getFirstChat(item.id+'-'+this.userData.id+'_D').subscribe(data => {
+                  item.last_message = data[0]['message'];
+                  item.last_message_time = data[0]['date'];
+                })
+              }
+            })
+            return item;
+          })
         }
         this.allUsers.length && this.allUsers.length>0?this.isListEmpty=false:this.isListEmpty=true;
-        //console.log('all users >>>',this.allUsers);
+        // console.log('all users >>>',this.allUsers);
         setTimeout(()=>{
           this.util.dismissLoader();
         },500);
       });
     })
   }
-  chat(){
-    this.navCtrl.push("ChatPage");
-  }
+
   notificaion(){
     this.navCtrl.push("NotificationsPage");
   }
   openChat(customer){
-    let chatRef = customer.id+'-'+this.userData.id;
-    this.navCtrl.push("ChatPage",{chatRef:chatRef});
+    let chatRef = customer.id+'-'+this.userData.id+'_D';
+    this.navCtrl.push("ChatPage",{chatRef:chatRef,customer:customer,driver:this.userData});
   }
 }

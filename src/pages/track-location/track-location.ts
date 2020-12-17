@@ -4,6 +4,7 @@ import {Storage} from "@ionic/storage";
 import {UtilProvider} from "../../providers/util/util";
 import {User} from "../../providers";
 import {Geolocation} from "@ionic-native/geolocation";
+import {FirebaseProvider} from "../../providers/firebase/firebase";
 
 declare var google;
 @IonicPage()
@@ -28,11 +29,13 @@ export class TrackLocationPage {
   constructor(public navCtrl: NavController,
               public util:UtilProvider,
               public user:User,
+              public firedb:FirebaseProvider,
               public storage:Storage,
               public geolocation:Geolocation,
               public navParams: NavParams) {
     this.storage.get('startedTripData').then(startedTripData=>{
       this.tripData=startedTripData;
+      // console.log('check trip data >>>>>>>',this.tripData);
       let to = new google.maps.LatLng(this.tripData.pick_latitude, this.tripData.pick_longitude);
       let from = new google.maps.LatLng(this.tripData.drop_latitude, this.tripData.drop_longitude);
       this.calculateAndDisplayRoute(to,from,this.tripData);
@@ -62,7 +65,16 @@ export class TrackLocationPage {
   }
 
   chat(){
-    this.navCtrl.push("ChatPage");
+    let customer = {
+      date_of_join:new Date().getTime(),
+      id:this.tripData.customer_id+'_C',
+      image:this.tripData.image,
+      isDriver:false,
+      name:this.tripData.first_name+' '+this.tripData.last_name
+    }
+    this.firedb.addUser(customer,this.userData.id+'_D');
+    let chatRef = this.tripData.customer_id+'_C'+'-'+this.userData.id+'_D';
+    this.navCtrl.push('ChatPage',{chatRef:chatRef,customer:customer,driver:this.userData});
   }
 
   calculateAndDisplayRoute(from, to, allData:any) {

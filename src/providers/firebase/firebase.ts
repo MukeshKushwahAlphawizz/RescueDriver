@@ -8,19 +8,32 @@ import {AngularFireDatabase} from "angularfire2/database";
 export class FirebaseProvider {
   chats: Observable<any[]>;
   users: Observable<any[]>;
-  private displayDetail: any = [];
   chatRef :any;
   userRef :any;
-  item: Observable<any>;
+
+  displayDetail: any = [];
 
   constructor(public http: HttpClient,public db : AngularFireDatabase) {
-    this.chatRef = this.db.database.ref('/all-chats');
-    // this.userRef = this.db.database.ref('/all-users');
   }
 
-  addUser(user,ref) {
-    this.userRef = this.db.database.ref('/all-users/'+ref);
-    this.userRef.push(user).then(() =>{})
+  addUser(driver,customerId) {
+    let users : any = this.db.list('/all-users/'+customerId).valueChanges();
+    let disposeMe = users.subscribe(item=>{
+      let userArr : any = item;
+      let isUserAvailable : boolean = false;
+      userArr.filter(item=>{
+        if (item.id === driver.id){
+          //user is already in the list
+          isUserAvailable = true;
+          return;
+        }
+      })
+      disposeMe.unsubscribe();
+      if (!isUserAvailable){
+        this.userRef = this.db.database.ref('/all-users/'+customerId);
+        this.userRef.push(driver).then(() =>{})
+      }
+    });
   }
   getAllUsers(userId){
     this.users = this.db.list('/all-users/'+userId).valueChanges();
@@ -42,7 +55,11 @@ export class FirebaseProvider {
     return this.chats;
   }
 
-
+  getFirstChat(customerDriverId){
+    this.chats = this.db.list('/all-chats/'+customerDriverId,
+      ref => ref.limitToLast(1)).valueChanges();
+    return this.chats;
+  }
 
 
 
