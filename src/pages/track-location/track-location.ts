@@ -127,7 +127,7 @@ export class TrackLocationPage {
   }
 
   updateDriverLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
+    this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then((resp) => {
       let rawData = {
         "user_id":this.userData.id,
         "latitude":resp.coords.latitude,

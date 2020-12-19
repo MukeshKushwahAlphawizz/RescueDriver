@@ -15,6 +15,10 @@ export class HomePage {
   userData : any = {}
   isListEmpty: boolean = false;
   interval: any = '';
+
+  watch:any = '';
+  subscription:any = '';
+
   constructor(public navCtrl: NavController,
               public user:User,
               public geolocation:Geolocation,
@@ -37,8 +41,16 @@ export class HomePage {
       this.interval = setInterval(() => {
         this.updateCurrentLocation();
       }, 8000);
+      // this.getCurrentLocation();
     })
   }
+  /*getCurrentLocation() {
+    console.log('getCurrentLocation called');
+    this.watch = this.geolocation.watchPosition({enableHighAccuracy: true});
+    this.subscription = this.watch.subscribe((data) => {
+      console.log('watch geolocation data >>>',data);
+    });
+  }*/
   ngOnDestroy(){
     if (this.interval){
       clearInterval(this.interval);
@@ -81,7 +93,8 @@ export class HomePage {
   }
 
   updateCurrentLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
+    // console.log('updateCurrentLocation called !!!!');
+    this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then((resp) => {
       console.log('lat',resp.coords.latitude,'lng',resp.coords.longitude);
       let rawData = {
         "user_id":this.userData.id,

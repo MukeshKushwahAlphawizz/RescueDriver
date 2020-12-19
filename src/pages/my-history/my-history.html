@@ -22,9 +22,7 @@
       <div *ngFor="let item of historyList" class="history_list">
         <ion-row>
           <ion-col col-2 no-padding>
-            <ion-thumbnail>
-              <img src="assets/img/dummy_pic.png">
-            </ion-thumbnail>
+            <img class="user-image" [src]="item.user_image&&item.user_image!==''?item.user_image:'assets/img/dummy_pic.png'">
           </ion-col>
           <ion-col col-10 no-padding>
             <ion-item class="btn_box">

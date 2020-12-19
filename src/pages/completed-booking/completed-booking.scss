@@ -10,7 +10,7 @@ page-completed-booking {
     .cancel_list span{
         font-size: 1rem;
         float: left;
-    }          
+    }
     .Drop_location span.text-yellow, .pickup_location span.text-yellow{
         float: right;
     }
@@ -24,7 +24,7 @@ page-completed-booking {
     .history_list {
         border-bottom: 1px solid #ccc;
         padding: 15px 0px 8px;
-    }    
+    }
     .Drop_location, .pickup_location {
         display: inline-block;
         width: 100%;
@@ -32,4 +32,10 @@ page-completed-booking {
     .cancel_list span.medium-text {
         font-size: 1.5rem;
     }
+  .user-image{
+    height: 35pt;
+    width: 35pt !important;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 }

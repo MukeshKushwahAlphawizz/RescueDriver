@@ -49,4 +49,10 @@ page-my-history {
         border-bottom: 1px solid #ccc;
         padding: 6px 0px 3px;
     }
+  .user-image{
+    height: 35pt;
+    width: 35pt;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 }
