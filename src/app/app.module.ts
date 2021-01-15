@@ -18,6 +18,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import {AngularFireModule} from "angularfire2";
 import {AngularFireDatabaseModule} from "angularfire2/database";
+import {FCMPluginOnIonic} from "../../plugins/cordova-plugin-fcm-with-dependecy-updated/ionic";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -64,6 +65,7 @@ export const firebaseConfig = {
     SplashScreen,
     StatusBar,
     FCM,
+    FCMPluginOnIonic,
     Geolocation,
     SocialSharing,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

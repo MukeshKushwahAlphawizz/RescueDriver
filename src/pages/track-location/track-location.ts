@@ -25,7 +25,6 @@ export class TrackLocationPage {
   map: any='';
 
   interval:any;
-  startMarker = new google.maps.Marker;
   constructor(public navCtrl: NavController,
               public util:UtilProvider,
               public user:User,
@@ -95,18 +94,17 @@ export class TrackLocationPage {
     });
   }
   loadMap(){
-    // this.startMarker.setMap(null);
-    this.startMarker = new google.maps.Marker({ position: {
+    let startMarker = new google.maps.Marker({ position: {
         lat:parseFloat(this.lat1),
         lng:parseFloat(this.long1)
       }, map: this.map, icon: 'assets/img/truck-map.png' });
 
-    this.startMarker = new google.maps.Marker({position: {
+    startMarker = new google.maps.Marker({position: {
         lat:parseFloat(this.lat2),
         lng:parseFloat(this.long2)
       }, map: this.map, icon: 'assets/img/green-dot.png' });
 
-    this.directionsDisplay.setMap(this.map,this.startMarker);
+    this.directionsDisplay.setMap(this.map,startMarker);
     this.directionsDisplay.setOptions({
       polylineOptions: {
         strokeColor: '#752264'

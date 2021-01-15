@@ -20,6 +20,7 @@ export class MenuPage {
               public share:SocialSharing,
               public storage:Storage,
               public util:UtilProvider) {
+    console.log('Menu page constructor called !!!!');
     storage.get('startedTripData').then(startedTripData=>{
       if (startedTripData){
         this.rootPage = 'TrackLocationPage';

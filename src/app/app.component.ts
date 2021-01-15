@@ -5,8 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular';
 import {Config, Events} from "ionic-angular/index";
 import {Storage} from "@ionic/storage";
-import {FCM} from "@ionic-native/fcm";
 import {UtilProvider} from "../providers/util/util";
+import {FCMPluginOnIonic} from "../../plugins/cordova-plugin-fcm-with-dependecy-updated/ionic";
 
 @Component({
   template: `
@@ -21,7 +21,7 @@ export class MyApp {
               private config: Config,
               private events: Events,
               private util: UtilProvider,
-              public fcm : FCM,
+              public fcm : FCMPluginOnIonic,
               private splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -40,6 +40,7 @@ export class MyApp {
           this.rootPage = 'LoginPage';
         }
       })
+
     });
     this.initTranslate();
   }
@@ -55,26 +56,24 @@ export class MyApp {
   }
 
   getFirebaseToken() {
-    this.fcm.subscribeToTopic('marketing');
-    this.fcm.getToken().then(token => {
-    });
-
-    this.fcm.onNotification().subscribe(data => {
-      if(data.wasTapped){
-        console.log("Received in background",JSON.stringify(data));
-      } else {
-        console.log("Received in foreground",JSON.stringify(data));
+    this.fcm.requestPushPermission().then(succ=>{
+      console.log('app component >> permission asked !!!');
+      this.fcm.onNotification().subscribe(data => {
+        if(data.wasTapped){
+          console.log("Received in background",JSON.stringify(data));
+        } else {
+          console.log("Received in foreground",JSON.stringify(data));
+        }
         console.log("check type >>>>",data.types);
         if (data.types === '1'){
           this.util.presentAlert('Booking',data.body);
           this.events.publish('bookingRequest',true);
         }
-      }
-    });
+      });
+    })
 
-    this.fcm.onTokenRefresh().subscribe(token => {
-      // console.log('onTokenRefresh called !!!',token);
-    });
-    this.fcm.unsubscribeFromTopic('marketing');
+    this.fcm.getToken().then(token=>{
+      console.log('app component token >>',token);
+    })
   }
 }

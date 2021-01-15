@@ -4,8 +4,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UtilProvider} from "../../providers/util/util";
 import {User} from "../../providers";
 import {Storage} from "@ionic/storage";
-import {Platform} from "ionic-angular/index";
-import {FCM} from "@ionic-native/fcm";
+import {Events, Platform} from "ionic-angular/index";
+import {FCMPluginOnIonic} from "../../../plugins/cordova-plugin-fcm-with-dependecy-updated/ionic";
 
 
 @IonicPage()
@@ -22,7 +22,8 @@ export class SignUpPage {
               public formBuilder: FormBuilder,
               public util:UtilProvider,
               public user : User,
-              public fcm : FCM,
+              public fcm : FCMPluginOnIonic,
+              public events : Events,
               public storage : Storage,
               public platform : Platform,
               public navParams: NavParams) {
@@ -110,24 +111,23 @@ export class SignUpPage {
   }
 
   getFirebaseToken() {
-    this.fcm.subscribeToTopic('marketing');
     this.fcm.getToken().then(token => {
       this.firebaseToken = token;
       console.log('token >>>',this.firebaseToken);
     });
 
-    this.fcm.onNotification().subscribe(data => {
+    /*this.fcm.onNotification().subscribe(data => {
       if(data.wasTapped){
         console.log("Received in background",data);
       } else {
         console.log("Received in foreground",data);
       }
-    });
+      if (data.types === '1'){
+        this.util.presentAlert('Booking',data.body);
+        this.events.publish('bookingRequest',true);
+      }
 
-    this.fcm.onTokenRefresh().subscribe(token => {
-      // console.log('onTokenRefresh called !!!',token);
-    });
-    this.fcm.unsubscribeFromTopic('marketing');
+    });*/
   }
 
   back() {

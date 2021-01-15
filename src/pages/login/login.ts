@@ -5,8 +5,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import { User } from '../../providers';
 import {UtilProvider} from "../../providers/util/util";
 import {Storage} from "@ionic/storage";
-import {Platform} from "ionic-angular/index";
-import {FCM} from "@ionic-native/fcm";
+import {Events, Platform} from "ionic-angular/index";
+import {FCMPluginOnIonic} from "../../../plugins/cordova-plugin-fcm-with-dependecy-updated/ionic";
 
 @IonicPage()
 @Component({
@@ -21,7 +21,8 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
               public util:UtilProvider,
               public user : User,
-              public fcm : FCM,
+              public fcm : FCMPluginOnIonic,
+              public events : Events,
               public platform : Platform,
               public storage : Storage,
               public formBuilder: FormBuilder, public navParams: NavParams) {
@@ -98,23 +99,25 @@ export class LoginPage {
     })
   }
   getFirebaseToken() {
-    this.fcm.subscribeToTopic('marketing');
-    this.fcm.getToken().then(token => {
-      this.firebaseToken = token;
-      console.log('token >>>',this.firebaseToken);
-    });
+    this.fcm.requestPushPermission().then(succ=>{
+      console.log('login page permission asked >> response >>>',succ);
+      this.fcm.getToken().then(token => {
+        this.firebaseToken = token;
+        console.log('login page token >>>',this.firebaseToken);
+      });
 
-    /*this.fcm.onNotification().subscribe(data => {
-      if(data.wasTapped){
-        console.log("Received in background",data);
-      } else {
-        console.log("Received in foreground",data);
-      }
-    });*/
-
-    this.fcm.onTokenRefresh().subscribe(token => {
-      // console.log('onTokenRefresh called !!!',token);
+      /*this.fcm.onNotification().subscribe(data => {
+        if(data.wasTapped){
+          console.log("Received in background",data);
+        } else {
+          console.log("Received in foreground",data);
+        }
+        console.log("check type >>>>",data.types);
+        if (data.types === '1'){
+          this.util.presentAlert('Booking',data.body);
+          this.events.publish('bookingRequest',true);
+        }
+      });*/
     });
-    this.fcm.unsubscribeFromTopic('marketing');
   }
 }
